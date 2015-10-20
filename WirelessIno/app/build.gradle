@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 20
+    compileSdkVersion 23
     buildToolsVersion "23.0.0"
 
     defaultConfig {
         applicationId "se.sics.sse.fresta.wirelessino"
         minSdkVersion 11
-        targetSdkVersion 21
+        targetSdkVersion 23
     }
 
     buildTypes {
