@@ -18,14 +18,15 @@ import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 
 public class PadView extends SurfaceView implements Callback, Runnable {
+
 	private boolean run;
 	private SurfaceHolder sh;
 	private Paint p, pRed, pBlue, pControls;
 	public Ball balls[]   = new Ball[2];
 	private int touchX[]  = new int[balls.length], 
 				touchY[]  = new int[balls.length],
-				origenY[] = new int[balls.length], 
-				origenX[] = new int[balls.length], 
+				originY[] = new int[balls.length],
+				originX[] = new int[balls.length],
 				idMap[]   = new int[balls.length]; // pointerId depends on how many fingers are pressed and can exceed the number of balls. Thus, a mapping is needed.
 	private int textSize, w, h;
 	public Rect screen, bar1, bar2, notif;
@@ -57,7 +58,6 @@ public class PadView extends SurfaceView implements Callback, Runnable {
 		pControls = new Paint();
 		pControls.setColor(Color.argb(220, 100, 180, 180));
 		pControls.setAntiAlias(true);
-
 	}
 
 	public void onDraw(Canvas canvas) {
@@ -109,10 +109,8 @@ public class PadView extends SurfaceView implements Callback, Runnable {
 	}
 
 	public Bitmap resizeImage(Context ctx, int resId, int w, int h) {
-
 		// load the origial Bitmap
-		Bitmap BitmapOrg = BitmapFactory.decodeResource(ctx.getResources(),
-				resId);
+		Bitmap BitmapOrg = BitmapFactory.decodeResource(ctx.getResources(),	resId);
 
 		int width = BitmapOrg.getWidth();
 		int height = BitmapOrg.getHeight();
@@ -137,7 +135,6 @@ public class PadView extends SurfaceView implements Callback, Runnable {
 		// make a Drawable from Bitmap to allow to set the Bitmap
 		// to the ImageView, ImageButton or what ever
 		return resizedBitmap;
-
 	}
 
 	@SuppressLint("WrongCall")
@@ -195,8 +192,8 @@ public class PadView extends SurfaceView implements Callback, Runnable {
 							aux.right + UMBRAL_TACTIL, aux.bottom + UMBRAL_TACTIL);
 					if (aux.contains(x, y) && idMap[i] < 0) {
 						idMap[i] = pointerId;
-						origenX[i] = touchX[i] = x;
-						origenY[i] = touchY[i] = y;
+						originX[i] = touchX[i] = x;
+						originY[i] = touchY[i] = y;
 					}
 				}
 				
@@ -248,27 +245,27 @@ public class PadView extends SurfaceView implements Callback, Runnable {
 						// lastWheelValue =
 						// Options.getInstance().getRBarValue();
 						if (balls[ballId].puedoMover(touchX[ballId]
-								- origenX[ballId], touchY[ballId]
-								- origenY[ballId], bar2)) {
+								- originX[ballId], touchY[ballId]
+								- originY[ballId], bar2)) {
 							(balls[ballId]).move(touchX[ballId]
-									- origenX[ballId], touchY[ballId]
-									- origenY[ballId]);
+									- originX[ballId], touchY[ballId]
+									- originY[ballId]);
 							
 							transformPWM(); //balls[ballId], bar2, Options.getInstance().getRBarValue());
 						}
 	
 					} else if (balls[ballId].puedoMover(touchX[ballId]
-							- origenX[ballId], touchY[ballId]
-							- origenY[ballId], bar1)) {
+							- originX[ballId], touchY[ballId]
+							- originY[ballId], bar1)) {
 						(balls[ballId]).move(touchX[ballId]
-								- origenX[ballId], touchY[ballId]
-								- origenY[ballId]);
+								- originX[ballId], touchY[ballId]
+								- originY[ballId]);
 						
 						transformPWM(); //balls[ballId], bar1, Options.getInstance().getLBarValue());
 	
 					}
-					origenY[ballId] = touchY[ballId];
-					origenX[ballId] = touchX[ballId];
+					originY[ballId] = touchY[ballId];
+					originX[ballId] = touchX[ballId];
 				}
 				break;
 			default:		
@@ -388,7 +385,5 @@ public class PadView extends SurfaceView implements Callback, Runnable {
 					Log.e(Main.TAG, "PGView-SD: " + e.getMessage());
 			}
 		}
-
 	}
-
 }

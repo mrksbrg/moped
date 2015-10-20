@@ -48,8 +48,8 @@ public class SocketConnector extends Activity {
 				String str_port = ed_port.getText().toString().trim();
 				
 				SharedPreferences mSharedPreferences = getSharedPreferences("list", MODE_PRIVATE);
-				mSharedPreferences.edit().putString("host",str_host).commit();
-				mSharedPreferences.edit().putString("port",str_port).commit();
+				mSharedPreferences.edit().putString("host",str_host).apply();
+				mSharedPreferences.edit().putString("port",str_port).apply();
 				
 				/* Create socket connection in a background task */
 				new AsyncConnectionTask().execute(str_host, str_port);
